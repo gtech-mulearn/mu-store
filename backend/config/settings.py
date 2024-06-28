@@ -27,7 +27,7 @@ DEBUG = config("DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
 
-
+SYSTEM_ADMIN_ID = config("SYSTEM_ADMIN_ID")
 # Application definition
 
 INSTALLED_APPS = [
