@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from models import ( 
+from api.models import ( 
     User,
     Project, 
     ProjectImage,
@@ -66,8 +66,10 @@ class ProjectSerializer(serializers.ModelSerializer):
         ]
 
 class ProjectUpdateSerializer(serializers.ModelSerializer):
-    logo = serializers.ImageField(max_length=None, use_url=True, required=False)
-    contributors = UserSerializer(many=True)
+    logo = serializers.ImageField(max_length=None, use_url=True)
+    contributors = serializers.ListField(
+        child=serializers.CharField(), write_only=True, required=False
+    )
     title = serializers.CharField(required=False)
     description = serializers.CharField(required=False)
     link = serializers.URLField(required=False)
@@ -82,4 +84,27 @@ class ProjectUpdateSerializer(serializers.ModelSerializer):
             "link",
             "contributors"
         ]
-        
+    def create(self, validated_data):
+        print(validated_data)
+        contributors_list = validated_data.pop('contributors', [])
+        contributors_string = contributors_list[0] if contributors_list else ''
+        contributors_muid = contributors_string.split(',') if contributors_string else []
+        validated_data.pop('images', [])
+        project = Project.objects.create(**validated_data)
+        for muid in contributors_muid:
+            user = User.objects.get(muid=muid.strip())
+            project.contributors.add(user)
+        return project
+
+    def update(self, instance, validated_data):
+        contributors_list = validated_data.pop('contributors', [])
+        contributors_string = contributors_list[0] if contributors_list else ''
+        contributors_muid = contributors_string.split(',') if contributors_string else []
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.contributors.clear()
+        for muid in contributors_muid:
+            user = User.objects.get(muid=muid.strip())
+            instance.contributors.add(user)
+        instance.save()
+        return instance

@@ -5,7 +5,7 @@ from utils.response import CustomResponse
 from utils.permission import CustomizePermission, JWTUtils
 from django.db.models import Avg
 
-from models import (
+from api.models import (
     Project,
     ProjectImage,
     Comment,
@@ -13,7 +13,7 @@ from models import (
     User
 )
 
-from serializer import (
+from api.serializer import (
     ProjectSerializer,
     ProjectUpdateSerializer,
     CommentSerializer,
@@ -79,19 +79,22 @@ class ProjectDetailAPIView(APIView):
             ).get_failure_response()
         project = Project.objects.get(id=pk)
         images_data = request.FILES.getlist('images')
-        serializer = ProjectUpdateSerializer(project, data=request.data, partial=True)
+        data = request.data.copy()
+        if 'images' in data:
+            del data['images']
+        serializer = ProjectUpdateSerializer(project, data=data, partial=True)
         if serializer.is_valid():
-            serializer.save(updated_by = user)
+            serializer.save(updated_by=user)
             if images_data:
                 ProjectImage.objects.filter(project=project).delete()
-                for image_data in images_data:
-                    ProjectImage.objects.create(project=project, image=image_data)
+                for image in images_data:
+                    ProjectImage.objects.create(project=project, image=image)
             read_serializer = ProjectSerializer(serializer.instance)
             return CustomResponse(
                 response={"Project": read_serializer.data}
             ).get_success_response()
         return CustomResponse(general_message=serializer.errors).get_failure_response()
-
+    
     def delete(self, request, pk=None):
         if pk is not None:
             try:
@@ -137,15 +140,14 @@ class ProjectsAPIView(APIView):
         if serializer.is_valid():
             project = serializer.save(created_by=user, updated_by=user)
             if images_data:
-                for image_data in images_data:
-                    ProjectImage.objects.create(project=project, image=image_data)
-                
+                for image in images_data:
+                    ProjectImage.objects.create(project=project, image=image)
+                    
             read_serializer = ProjectSerializer(project)
             return CustomResponse(
                 response={"Project": read_serializer.data}
             ).get_success_response()
         else:
-            print(serializer.errors)
             return CustomResponse(general_message=serializer.errors).get_failure_response()
 
     
