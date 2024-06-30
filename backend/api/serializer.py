@@ -16,23 +16,27 @@ class UserSerializer(serializers.ModelSerializer):
         ]
 
 class VoteSerializer(serializers.ModelSerializer):
-    user = serializers.CharField(source='user.full_name')
-    updated_by = serializers.CharField(source='updated_by.full_name')
-    created_by = serializers.CharField(source='created_by.full_name')
+    user = serializers.CharField(source='user.full_name',read_only=True)
+    updated_by = serializers.CharField(source='updated_by.full_name',read_only=True)
+    created_by = serializers.CharField(source='created_by.full_name',read_only=True)
     
     class Meta:
         model = Vote
         fields = "__all__"
+    
 
 class CommentSerializer(serializers.ModelSerializer):
-    user = serializers.CharField(source='user.full_name')
-    updated_by = serializers.CharField(source='updated_by.full_name')
-    created_by = serializers.CharField(source='created_by.full_name')
+    user = serializers.CharField(source='user.full_name',read_only=True)
+    updated_by = serializers.CharField(source='updated_by.full_name',read_only=True)
+    created_by = serializers.CharField(source='created_by.full_name',read_only=True)
     
     class Meta:
         model = Comment
         fields = "__all__"
-        
+    
+    def update(self, instance, validated_data):
+        validated_data.setdefault('project', instance.project)
+        return super().update(instance, validated_data)
 class ProjectImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectImage
@@ -46,6 +50,9 @@ class ProjectSerializer(serializers.ModelSerializer):
     votes = VoteSerializer(many=True, read_only=True)
     comments = CommentSerializer(many=True, read_only=True)
     contributors = UserSerializer(many=True)
+    upvotes_count = serializers.SerializerMethodField()
+    downvotes_count = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Project
@@ -57,13 +64,25 @@ class ProjectSerializer(serializers.ModelSerializer):
             "description",
             "link",
             "contributors",
+            "upvotes_count",
+            "downvotes_count",
+            "comments_count",
             "created_at",
             "updated_at",
             "created_by",
             "updated_by",
             "votes",
             "comments"
+            
         ]
+    def get_upvotes_count(self, obj):
+        return obj.votes.filter(vote='upvote').count()
+
+    def get_downvotes_count(self, obj):
+        return obj.votes.filter(vote='downvote').count()
+
+    def get_comments_count(self, obj):
+        return obj.comments.count()
 
 class ProjectUpdateSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(max_length=None, use_url=True)
