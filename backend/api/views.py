@@ -4,6 +4,8 @@ from utils.utils import CommonUtils
 from utils.response import CustomResponse
 from utils.permission import CustomizePermission, JWTUtils
 from django.db.models import Avg
+from django.utils import timezone
+from django.db.models import Count, Case, When, IntegerField, DateTimeField , F
 
 from api.models import (
     Project,
@@ -20,43 +22,60 @@ from api.serializer import (
     VoteSerializer
 )
 
-def calculate_score(upvotes, downvotes):
-    return (upvotes + downvotes) / 2
-
 
 class WeeklyLeaderboardAPIView(APIView):
     authentication_classes = [CustomizePermission]
 
     def get(self, request):
-        today = datetime.now()
-        start_week = today - timedelta(days=today.weekday() + 1)  # Sunday of this week
-        end_week = start_week + timedelta(days=6)  # Saturday of this week
+        today = timezone.now()
+        start_week = today - timedelta(days=today.weekday())  # Monday of this week
+        start_week = today - timedelta(days=today.weekday())  # Monday of this week
+        end_week = start_week + timedelta(days=6)  # Sunday of this week
         projects = Project.objects.filter(created_at__range=[start_week, end_week])
-        projects = sorted(projects, key=lambda p: calculate_score(p.upvotes, p.downvotes), reverse=True)
+        # Annotate each project with the count of upvotes and downvotes
+        projects = projects.annotate(
+            upvotes=Count(Case(When(votes__vote='upvote', then=1), output_field=IntegerField())),
+            downvotes=Count(Case(When(votes__vote='downvote', then=1), output_field=IntegerField()))
+        ) 
+        projects = projects.annotate(vote_difference=F('upvotes') - F('downvotes'))
+        projects = projects.order_by('-vote_difference')
+
         serializer = ProjectSerializer(projects, many=True)
         return CustomResponse(response={"Projects": serializer.data}).get_success_response()
-
+    
 class MonthlyLeaderboardAPIView(APIView):
     authentication_classes = [CustomizePermission]
 
     def get(self, request):
-        today = datetime.now()
+        today = timezone.now()
         start_month = today.replace(day=1)  # First day of this month
-        end_month = (today.replace(day=1) + timedelta(days=31)).replace(day=1) - timedelta(days=1)  # Last day of this month
+        end_month = (start_month + timedelta(days=32)).replace(day=1) - timedelta(days=1)  # Last day of this month
+        print(start_month, end_month)
         projects = Project.objects.filter(created_at__range=[start_month, end_month])
-        projects = sorted(projects, key=lambda p: calculate_score(p.upvotes, p.downvotes), reverse=True)
+        projects = projects.annotate(
+            upvotes=Count(Case(When(votes__vote='upvote', then=1), output_field=IntegerField())),
+            downvotes=Count(Case(When(votes__vote='downvote', then=1), output_field=IntegerField()))
+        ) 
+        projects = projects.annotate(vote_difference=F('upvotes') - F('downvotes'))
+        projects = projects.order_by('-vote_difference')
         serializer = ProjectSerializer(projects, many=True)
         return CustomResponse(response={"Projects": serializer.data}).get_success_response()
-
+    
 class OverallLeaderboardAPIView(APIView):
     authentication_classes = [CustomizePermission]
 
     def get(self, request):
         projects = Project.objects.all()
-        projects = sorted(projects, key=lambda p: calculate_score(p.upvotes, p.downvotes), reverse=True)
+        projects = projects.annotate(
+            upvotes=Count(Case(When(votes__vote='upvote', then=1), output_field=IntegerField())),
+            downvotes=Count(Case(When(votes__vote='downvote', then=1), output_field=IntegerField()))
+        ) 
+        projects = projects.annotate(vote_difference=F('upvotes') - F('downvotes'))
+        projects = projects.order_by('-vote_difference')
         serializer = ProjectSerializer(projects, many=True)
         return CustomResponse(response={"Projects": serializer.data}).get_success_response()
     
+
 class ProjectDetailAPIView(APIView):
     authentication_classes = [CustomizePermission]
     def get(self, request, pk=None):
