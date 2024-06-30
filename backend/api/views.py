@@ -5,6 +5,7 @@ from utils.response import CustomResponse
 from utils.permission import CustomizePermission, JWTUtils
 from django.db.models import Avg
 from django.utils import timezone
+from django.utils.dateparse import parse_datetime
 from django.db.models import Count, Case, When, IntegerField, DateTimeField , F
 
 from api.models import (
@@ -75,7 +76,29 @@ class OverallLeaderboardAPIView(APIView):
         serializer = ProjectSerializer(projects, many=True)
         return CustomResponse(response={"Projects": serializer.data}).get_success_response()
     
+class CustomLeaderboardAPIView(APIView):
+    authentication_classes = [CustomizePermission]
 
+    def get(self, request):
+        start_date_str = request.GET.get('start_date', None)
+        end_date_str = request.GET.get('end_date', None)
+
+        projects = Project.objects.all()
+
+        if start_date_str and end_date_str:
+            start_date = parse_datetime(start_date_str)
+            end_date = parse_datetime(end_date_str)
+            projects = projects.filter(created_at__range=(start_date, end_date))
+
+        projects = projects.annotate(
+            upvotes=Count(Case(When(votes__vote='upvote', then=1), output_field=IntegerField())),
+            downvotes=Count(Case(When(votes__vote='downvote', then=1), output_field=IntegerField()))
+        ) 
+        projects = projects.annotate(vote_difference=F('upvotes') - F('downvotes'))
+        projects = projects.order_by('-vote_difference')
+        serializer = ProjectSerializer(projects, many=True)
+        return CustomResponse(response={"Projects": serializer.data}).get_success_response()
+     
 class ProjectDetailAPIView(APIView):
     authentication_classes = [CustomizePermission]
     def get(self, request, pk=None):
