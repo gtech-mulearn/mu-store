@@ -152,21 +152,26 @@ class ProjectsAPIView(APIView):
 
     
 class ProjectVoteAPI(APIView):
-        
+    authentication_classes = [CustomizePermission]
     def post(self, request):
+        user = User.objects.get(id=JWTUtils.fetch_user_id(request))
+        project_id = request.data.get('project')  # replace 'project' with the actual field name for the project in your Vote model
+        if Vote.objects.filter(user=user, project_id=project_id).exists():
+            return CustomResponse(general_message="You have already voted for this project.").get_failure_response()
         serializer = VoteSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(user=user,created_by=user)
             return CustomResponse(
                 response={"Vote": serializer.data}
             ).get_success_response()
         return CustomResponse(general_message=serializer.errors).get_failure_response()
     
     def put(self, request,pk):
+        user = User.objects.get(id=JWTUtils.fetch_user_id(request))
         vote = Vote.objects.get(id=pk)
         serializer = VoteSerializer(vote, data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(updated_by=user)
             return CustomResponse(
                 response={"Vote": serializer.data}
             ).get_success_response()
@@ -186,22 +191,24 @@ class ProjectVoteAPI(APIView):
 
 
 class ProjectCommentAPI(APIView):
-        
-    
+    authentication_classes = [CustomizePermission]
     def post(self, request):
+        user = User.objects.get(id=JWTUtils.fetch_user_id(request))
         serializer = CommentSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(user=user,created_by=user)
             return CustomResponse(
                 response={"Comment": serializer.data}
             ).get_success_response()
         return CustomResponse(general_message=serializer.errors).get_failure_response()
 
     def put(self, request,pk):
+        user = User.objects.get(id=JWTUtils.fetch_user_id(request))
         comment = Comment.objects.get(id=pk)
+        request.data.setdefault('project', comment.project.id)
         serializer = CommentSerializer(comment, data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(updated_by=user)
             return CustomResponse(
                 response={"Comment": serializer.data}
             ).get_success_response()
