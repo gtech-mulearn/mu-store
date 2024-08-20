@@ -1,0 +1,200 @@
+@import url("https://fonts.googleapis.com/css2?family=Playwrite+AR:wght@100..400&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+.heading {
+  font-size: 1.875rem;
+  font-weight: bold;
+  font-family: "Inter", sans-serif;
+}
+
+.subHead {
+  font-size: 1rem;
+  color: #969696;
+  font-family: "Inter", sans-serif;
+}
+
+.textSmall {
+  font-size: 0.875rem;
+  font-family: "Inter", sans-serif;
+}
+
+.textTiny {
+  font-size: 0.75rem;
+  font-family: "Inter", sans-serif;
+}
+
+.textPri {
+  color: #132972;
+}
+
+.textRed {
+  color: rgb(239 68 68);
+}
+
+.buttonText {
+  font-size: 0.9rem;
+}
+
+.logoText {
+  align-self: center;
+  font-size: 1.3rem;
+  color: white;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.bannerContainer {
+  width: 50vw;
+  height: 100lvh;
+}
+
+.doorImage {
+  position: absolute;
+  width: 25vw;
+  bottom: 0%;
+  left: 50%;
+  transform: translateX(-48%);
+}
+
+.formContainer {
+  width: 50vw;
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.floatingForm {
+  margin: 0.7rem 0;
+  padding-right: 5rem;
+  max-width: 600px;
+  width: 95%;
+}
+
+.labelContent {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+.floatingLabel {
+  color: #9a9a9a;
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  position: absolute;
+  pointer-events: none;
+  left: 10px;
+  top: 11px;
+  padding: 0 5px;
+  background: #fff;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+}
+.floatingInput {
+  font-size: 0.8rem;
+  display: block;
+  width: 100%;
+  height: 36px;
+  padding: 20px 20px;
+  background: #fff;
+  color: #000;
+  border: 2px solid #d9d9d9;
+  border-radius: 0.6rem;
+  box-sizing: border-box;
+  &:focus {
+    outline: none;
+    ~ .floatingLabel {
+      top: -8px;
+      color: #132972;
+    }
+  }
+}
+
+.floatingInput:focus {
+  border: 2px solid #132972;
+}
+
+.floatingInput:not(:placeholder-shown) ~ .floatingLabel {
+  top: -8px;
+  color: #132972;
+}
+
+.errorInput {
+  .floatingInput {
+    border: 2px solid #9d3b3b;
+    color: #9d3b3b;
+  }
+  .floatingLabel {
+    font-weight: 600;
+    color: #9d3b3b;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .doorImage {
+    width: 40vw;
+  }
+
+  .formContainer {
+    padding: 2rem;
+    font-size: smaller;
+  }
+
+  .heading {
+    font-size: 1.5rem;
+  }
+
+  .subHead {
+    font-size: 0.85rem;
+  }
+
+  .textSmall {
+    font-size: 0.65rem;
+  }
+
+  .textTiny {
+    font-size: 0.5rem;
+  }
+
+  .floatingLabel {
+    font-size: 0.65rem;
+  }
+
+  .buttonText {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .mobileFlex {
+    flex-direction: column;
+    position: relative;
+  }
+  .bannerContainer {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    height: inherit;
+  }
+
+  .formContainer {
+    z-index: 1;
+    background-color: #fff;
+    width: 90vw;
+    padding: 2rem 1rem;
+    margin-top: 35vh;
+    margin-bottom: 15vh;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+    border-radius: 0.4rem;
+    align-items: center;
+    align-self: center;
+  }
+
+  .logoText {
+    font-size: 1rem;
+  }
+
+  .floatingForm {
+    padding: 0;
+  }
+}
