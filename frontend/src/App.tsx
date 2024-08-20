@@ -1,9 +1,11 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import NotFound from "./pages/notFound";
 import Layout from "./components/layouts/layout";
 import Signin from "./pages/signin/Signin";
 import Signup from "./pages/signup/Signup";
+import Profile from "./pages/profile";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -23,9 +25,18 @@ function App() {
       element: <Signup />,
     },
     {
-      path: "/admin",
+      path: "/dashboard",
       element: <Layout />,
-      children: [],
+      children: [
+        {
+          path: "/dashboard",
+          element: <Navigate to="/dashboard/profile" />,
+        },
+        {
+          path: "/dashboard/profile",
+          element: <Profile />,
+        },
+      ],
     },
     // {
     //   path: "/admin",

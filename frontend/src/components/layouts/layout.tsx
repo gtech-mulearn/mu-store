@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import Sidebar from "../sidebar/sidebar";
 function Layout() {
   return (
@@ -15,7 +16,7 @@ function Layout() {
           </div>
         </header>
         {/* dynamic content based on rout */}
-        <div className="bg-red-300">hi</div>
+        <Outlet />
       </div>
     </div>
   );
