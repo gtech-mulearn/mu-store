@@ -1,10 +1,15 @@
 import "./App.css";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import NotFound from "./pages/notFound";
 import Layout from "./components/layouts/layout";
 import Signin from "./pages/signin/Signin";
 import Signup from "./pages/signup/Signup";
 import Profile from "./pages/profile";
+import Hero from "./pages/hero";
 
 function App() {
   const router = createBrowserRouter([
@@ -37,6 +42,10 @@ function App() {
           element: <Profile />,
         },
       ],
+    },
+    {
+      path: "/",
+      element: <Hero />,
     },
     // {
     //   path: "/admin",
