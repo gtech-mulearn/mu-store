@@ -1,10 +1,9 @@
 import "./App.css";
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "./pages/notFound";
-
+import Layout from "./components/layouts/layout";
+import Signin from "./pages/signin/Signin";
+import Signup from "./pages/signup/Signup";
 function App() {
   const router = createBrowserRouter([
     {
@@ -14,6 +13,19 @@ function App() {
     {
       path: "/404",
       element: <NotFound />,
+    },
+    {
+      path: "/signin",
+      element: <Signin />,
+    },
+    {
+      path: "/signup",
+      element: <Signup />,
+    },
+    {
+      path: "/admin",
+      element: <Layout />,
+      children: [],
     },
     // {
     //   path: "/admin",
@@ -43,7 +55,6 @@ function App() {
     //     },
     //   ],
     // },
-  
   ]);
   return (
     <>
