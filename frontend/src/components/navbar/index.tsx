@@ -15,19 +15,16 @@ function Navbar() {
 
         <div className="flex space-x-8 text-gray-700 max-md:hidden">
           <a href="#" className="hover:text-black hover:underline">
-            Launches
-          </a>
-          <a href="#" className="hover:text-black hover:underline">
             Products
           </a>
           <a href="#" className="hover:text-black hover:underline">
-            News
+            Leaderboard
+          </a>
+          <a href="#" className="hover:text-black hover:underline">
+            About
           </a>
           <a href="#" className="hover:text-black hover:underline">
             Community
-          </a>
-          <a href="#" className="hover:text-black hover:underline">
-            Advertise
           </a>
         </div>
 

@@ -5,11 +5,13 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import NotFound from "./pages/notFound";
-import Layout from "./components/layouts/layout";
-import Signin from "./pages/signin/Signin";
-import Signup from "./pages/signup/Signup";
+import Signin from "./pages/signin";
+import Signup from "./pages/signup";
 import Profile from "./pages/profile";
-import Main from "./pages/main/Main";
+import Main from "./pages/main";
+import Layout from "./layouts/layout";
+import DashboardLayout from "./layouts/dashboardLayout";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -30,11 +32,17 @@ function App() {
     },
     {
       path: "/",
-      element: <Main />,
+      element: <Layout />,
+      children: [
+        {
+          path: "/",
+          element: <Main />,
+        }
+      ]
     },
     {
       path: "/dashboard",
-      element: <Layout />,
+      element: <DashboardLayout />,
       children: [
         {
           path: "/dashboard",
@@ -46,35 +54,8 @@ function App() {
         },
       ],
     },
-    // {
-    //   path: "/admin",
-    //   element: <PrivateRoutes />,
-    //   children: [
-    //     {
-    //       path: "/admin",
-    //       element: <Navigate to="/admin/pricing" />,
-    //     },
-    //     {
-    //       path: "/admin/",
-    //       element: <LayoutAdmin />,
-    //       children: [
-    //         {
-    //           path: "pricing/",
-    //           element: <PricingAdmin />,
-    //         },
-    //         {
-    //           path: "one-time-orders/",
-    //           element: <OneTimeOrders />,
-    //         },
-    //         {
-    //           path: "subscriptions/",
-    //           element: <SubscriptionsAdmin />,
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
   ]);
+  
   return (
     <>
       {/* <Toaster position="bottom-right" reverseOrder={false} /> */}

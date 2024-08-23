@@ -1,12 +1,10 @@
-import Navbar from "../../components/public_nav/Navbar";
-import Welcome from "./components/Welcome";
-import Products from "./components/Products";
-import Events from "./components/Events";
+import Welcome from "./components/welcome";
+import Products from "./components/products";
+import Events from "./components/events";
 
-function Main() {
+const Main = () => {
   return (
     <div className="flex flex-col gap-5 relative overflow-x-hidden w-full">
-      <Navbar />
       <div className="container mx-auto p-6 h-full w-full flex">
         <div className="lg:border-r-[1px] lg:border-gray-300 h-full w-full lg:w-3/4 lg:px-24 px-8">
           <Welcome />
