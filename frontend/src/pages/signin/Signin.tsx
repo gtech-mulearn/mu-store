@@ -2,6 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import styles from "./signin.module.css"
+import wall_bg from "./assets/wall_bg.svg"
+import logo from "./assets/logo.svg"
+import door from "./assets/door.png"
+import mu from "./assets/mu.svg"
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
@@ -28,86 +33,97 @@ function Signin() {
   };
 
   return (
-    <div className="flex min-h-screen w-full">
-      <div className="w-1/2 bg-blue-50">mustore</div>
-      <div className="flex-1 flex flex-col items-center justify-center bg-red-300 rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold mb-2">Sign in</h1>
-        <p className="text-gray-600 mb-6">
+    <div className={`${"flex min-h-screen w-full"} ${styles.mobileFlex}`}>
+      <div className={styles.bannerContainer}>
+      <div className="h-full w-full relative overflow-hidden bg-[#132972]">
+        <img src={wall_bg} alt="background pattern" className="place-self-stretch w-full"/>
+        <div className="absolute left-1/2 top-36 sm:top-1/2 md:top-1/3 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center" >
+          <p className={styles.logoText}>Welcome to</p>
+          <img src={logo} alt="Mu Store" className="w-[35vw] sm:w-[15vw] py-1"/>
+        </div>
+        <img src={door} alt="door" className={styles.doorImage} />
+        </div></div>
+      <div className={styles.formContainer}>
+        <h1 className={styles.heading}>Sign in</h1>
+        <p className={styles.subHead}>
           Please login to continue to your account.
         </p>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <input
-              type="email"
-              placeholder="Email"
-              {...register("email")}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            {errors.email && (
-              <span className="text-red-500 text-sm">
-                {errors.email.message}
-              </span>
-            )}
-          </div>
-
-          <div>
-            <input
-              type="password"
-              placeholder="Password"
-              {...register("password")}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            {errors.password && (
-              <span className="text-red-500 text-sm">
-                {errors.password.message}
-              </span>
-            )}
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
+        <div className={styles.floatingForm}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {/* have to add .errorInput class to .labelContent when error */}
+            {/* <div className={`${styles.labelContent} ${styles.errorInput}`}> */}
+            <div className={styles.labelContent}>
               <input
-                type="checkbox"
-                id="keepLoggedIn"
-                {...register("keepLoggedIn")}
-                className="mr-2"
+                type="email"
+                placeholder=""
+                {...register("email")}
+                className={styles.floatingInput}
               />
-              <label htmlFor="keepLoggedIn" className="text-sm text-gray-600">
-                Keep me logged in
-              </label>
+              <label className={styles.floatingLabel}>Mu ID</label>
+              {errors.email && (
+                <span className={`${styles.textSmall} ${styles.textRed}`}>
+                  {errors.email.message}
+                </span>
+              )}
             </div>
-            <p className="text-sm text-blue-600 hover:underline">
-              Forgot Password
-            </p>
+            <div className={styles.labelContent}>
+              <input
+                type="password"
+                placeholder=""
+                {...register("password")}
+                className={styles.floatingInput}
+              />
+              <label className={styles.floatingLabel}>Password</label>
+              {errors.password && (
+                <span className={`${styles.textSmall} ${styles.textRed}`}>
+                  {errors.password.message}
+                </span>
+              )}
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  id="keepLoggedIn"
+                  {...register("keepLoggedIn")}
+                  className="mr-2"
+                />
+                <label htmlFor="keepLoggedIn" className={`${"text-[#232323] font-medium" } ${styles.textSmall}`}>
+                  Keep me logged in
+                </label>
+              </div>
+              <p className={`${" text-[#132972] cursor-pointer hover:underline"} ${styles.textTiny}`}>
+                Forgot Password
+              </p>
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-[#132972] text-white font-inter font-semibold py-[.7rem] rounded-md hover:bg-[#102258] transition duration-200 mt-4"
+            >
+              <p className={styles.buttonText}>Sign in</p>
+            </button>
+          </form>
+          <div className="mt-1 text-center">
+            <div className="text-[#6e6e6e] relative flex justify-center"><hr className="bg-[#D9D9D9] absolute top-[55%] w-[100%]" /><p className="relative bg-white text-[#6e6e6e] font-inter z-10 w-fit p-1">or</p></div>
+            <button className="mt-2 w-full bg-white border border-gray-300 text-[#232323] py-[.7rem] rounded-md hover:bg-gray-50 transition duration-300 flex items-center justify-center gap-2 font-inter font-semibold">
+              <img src={mu} alt="mulearn" className="h-[1.4rem] translate-y-[5%]"/><p className={styles.buttonText}>Sign in with MuLearn</p>
+            </button>
           </div>
-
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-300"
-          >
-            Sign in
-          </button>
-        </form>
-
-        <div className="mt-6 text-center">
-          <p className="text-gray-600">or</p>
-          <button className="mt-2 w-full bg-white border border-gray-300 text-gray-700 py-2 rounded-md hover:bg-gray-50 transition duration-300">
-            Sign in with MuLearn
-          </button>
+          <div className="mt-6 text-center flex justify-center gap-1">
+            <p className=" text-gray-600">
+              Don't have an account?{" "}
+              </p>
+            <p
+              onClick={() => {
+                navigate("/signup");
+              }}
+              className="text-[#132972] hover:underline cursor-pointer"
+            >
+              Create one
+              </p>
+          </div>
         </div>
-
-        <p className="mt-6 text-center text-gray-600">
-          Don't have an account?{" "}
-          <p
-            onClick={() => {
-              navigate("/signup");
-            }}
-            className="text-blue-600 hover:underline"
-          >
-            Create one
-          </p>
-        </p>
       </div>
     </div>
   );
