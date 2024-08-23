@@ -3,10 +3,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import styles from "./index.module.css"
-import wall_bg from "./assets/wall_bg.svg"
-import logo from "./assets/logo.svg"
-import door from "./assets/door.png"
-import mu from "./assets/mu.svg"
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
@@ -36,12 +32,12 @@ function Signin() {
     <div className={`${"flex min-h-screen w-full"} ${styles.mobileFlex}`}>
       <div className={styles.bannerContainer}>
       <div className="h-full w-full relative overflow-hidden bg-[#132972]">
-        <img src={wall_bg} alt="background pattern" className="place-self-stretch w-full"/>
+        <img src='/images/signin/mu.svg' alt="background pattern" className="place-self-stretch w-full"/>
         <div className="absolute left-1/2 top-36 sm:top-1/2 md:top-1/3 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center" >
           <p className={styles.logoText}>Welcome to</p>
-          <img src={logo} alt="Mu Store" className="w-[35vw] sm:w-[15vw] py-1"/>
+          <img src='/images/signin/logo.svg' alt="Mu Store" className="w-[35vw] sm:w-[15vw] py-1"/>
         </div>
-        <img src={door} alt="door" className={styles.doorImage} />
+        <img src='/images/signin/door.png' alt="door" className={styles.doorImage} />
         </div></div>
       <div className={styles.formContainer}>
         <h1 className={styles.heading}>Sign in</h1>
@@ -107,7 +103,7 @@ function Signin() {
           <div className="mt-1 text-center">
             <div className="text-[#6e6e6e] relative flex justify-center"><hr className="bg-[#D9D9D9] absolute top-[55%] w-[100%]" /><p className="relative bg-white text-[#6e6e6e] font-inter z-10 w-fit p-1">or</p></div>
             <button className="mt-2 w-full bg-white border border-gray-300 text-[#232323] py-[.7rem] rounded-md hover:bg-gray-50 transition duration-300 flex items-center justify-center gap-2 font-inter font-semibold">
-              <img src={mu} alt="mulearn" className="h-[1.4rem] translate-y-[5%]"/><p className={styles.buttonText}>Sign in with MuLearn</p>
+              <img src='/images/signin/mu.svg' alt="mulearn" className="h-[1.4rem] translate-y-[5%]"/><p className={styles.buttonText}>Sign in with MuLearn</p>
             </button>
           </div>
           <div className="mt-6 text-center flex justify-center gap-1">

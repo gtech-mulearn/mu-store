@@ -1,4 +1,3 @@
-import mustore from "../../assets/mustore_logo.png";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 import { useState } from "react";
@@ -10,7 +9,7 @@ function Navbar() {
     <nav className="bg-white py-2 px-6 border-b-[1px] border-gray-300 w-full overflow-x-hidden">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-2">
-          <img src={mustore} alt="mustore" className="h-14" />
+          <img src='/images/logo.png' alt="mustore" className="h-14" />
         </div>
 
         <div className="flex space-x-8 text-gray-700 max-md:hidden">
