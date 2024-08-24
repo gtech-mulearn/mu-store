@@ -4,13 +4,13 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import NotFound from "./pages/notFound";
-import Signin from "./pages/signin";
-import Signup from "./pages/signup";
-import Profile from "./pages/profile";
-import Main from "./pages/main";
-import Layout from "./layouts/layout";
-import DashboardLayout from "./layouts/dashboardLayout";
+import NotFound from "@pages/notFound";
+import Signin from "@pages/signin";
+import Signup from "@pages/signup";
+import Layout from "@layouts/layout";
+import DashboardLayout from "@layouts/dashboardLayout";
+import Main from "@pages/main";
+import Profile from "@pages/profile";
 
 function App() {
   const router = createBrowserRouter([

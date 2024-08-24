@@ -14,6 +14,7 @@
       "@utils/*": ["./src/utils/*"],
       "@types/*": ["./types/*"],
       "@context/*": ["./src/context/*"],
+      "@layouts/*": ["./src/layouts/*"],
     },
     /* Bundler mode */
     "moduleResolution": "bundler",
