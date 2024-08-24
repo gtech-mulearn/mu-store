@@ -2,19 +2,41 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@services/*": ["./src/services/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@types/*": ["./types/*"],
-      "@context/*": ["./src/context/*"],
-      "@layouts/*": ["./src/layouts/*"],
+      "@/*": [
+        "./src/*"
+      ],
+      "@contexts/*": [
+        "./src/contexts/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@layouts/*": [
+        "./src/layouts/*"
+      ],
+      "@pages/*": [
+        "./src/pages/*"
+      ],
+      "@services/*": [
+        "./src/services/*"
+      ],
+      "@types/*": [
+        "./types/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
     },
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -23,15 +45,24 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-
-    "typeRoots": ["./node_modules/@types", "./types"]
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ]
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "./src",
+    "**/*.ts",
+    "**/*.tsx",
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
