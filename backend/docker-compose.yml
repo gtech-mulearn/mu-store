@@ -1,0 +1,17 @@
+version: '3'
+services:
+  mustorebackend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mustorebackend
+    image: mustorebackend
+    restart: always
+    ports:
+      - "8005:8000"
+    volumes:
+      - /var/log/mustorebackend:/var/log/mustorebackend
+      - /var/www/mustorebackend/assets:/app/assets
+      - /var/www/mustorebackend/media:/app/media
+    env_file:
+      - .env
