@@ -10,6 +10,7 @@ import Layout from "@layouts/layout";
 import DashboardLayout from "@layouts/dashboardLayout";
 import Main from "@pages/main";
 import Profile from "@pages/profile";
+import AddProjects from "./pages/addProjects";
 
 function App() {
   const router = createBrowserRouter([
@@ -32,8 +33,12 @@ function App() {
         {
           path: "/",
           element: <Main />,
-        }
-      ]
+        },
+        {
+          path: "/addProjects",
+          element: <AddProjects />,
+        },
+      ],
     },
     {
       path: "/dashboard",
@@ -50,7 +55,7 @@ function App() {
       ],
     },
   ]);
-  
+
   return (
     <>
       {/* <Toaster position="bottom-right" reverseOrder={false} /> */}

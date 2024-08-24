@@ -1,10 +1,10 @@
-import Welcome from "./components/welcome";
-import Products from "./components/products";
-import Events from "./components/events";
+import Events from "./components/Events";
+import Products from "./components/Products";
+import Welcome from "./components/Welcome";
 
 const Main = () => {
   return (
-    <div className="flex flex-col gap-5 relative overflow-x-hidden w-full">
+    <div className="flex flex-col gap-5 overflow-x-hidden w-full">
       <div className="container mx-auto p-6 h-full w-full flex">
         <div className="lg:border-r-[1px] lg:border-gray-300 h-full w-full lg:w-3/4 lg:px-24 px-8">
           <Welcome />
@@ -20,6 +20,6 @@ const Main = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Main;
