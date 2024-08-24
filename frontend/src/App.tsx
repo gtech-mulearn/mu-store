@@ -6,7 +6,6 @@ import {
 } from "react-router-dom";
 import NotFound from "@pages/notFound";
 import Signin from "@pages/signin";
-import Signup from "@pages/signup";
 import Layout from "@layouts/layout";
 import DashboardLayout from "@layouts/dashboardLayout";
 import Main from "@pages/main";
@@ -25,10 +24,6 @@ function App() {
     {
       path: "/signin",
       element: <Signin />,
-    },
-    {
-      path: "/signup",
-      element: <Signup />,
     },
     {
       path: "/",
