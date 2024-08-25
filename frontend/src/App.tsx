@@ -11,6 +11,7 @@ import DashboardLayout from "@layouts/dashboardLayout";
 import Main from "@pages/main";
 import Profile from "@pages/profile";
 import AddProjects from "./pages/addProjects";
+import Leaderboard from "./pages/leaderboard";
 
 function App() {
   const router = createBrowserRouter([
@@ -53,6 +54,10 @@ function App() {
           element: <Profile />,
         },
       ],
+    },
+    {
+      path: "/leaderboard",
+      element: <Leaderboard />,
     },
   ]);
 
