@@ -1,16 +1,12 @@
 import "./App.css";
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import NotFound from "@pages/notFound";
-import Signin from "@pages/signin";
 import Layout from "@layouts/layout";
 import DashboardLayout from "@layouts/dashboardLayout";
 import Main from "@pages/main";
 import Profile from "@pages/profile";
 import AddProjects from "./pages/addProjects";
+import { AuthLayout, Signin } from "@/app/auth";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -24,8 +20,12 @@ function App() {
       element: <NotFound />,
     },
     {
-      path: "/signin",
-      element: <Signin />,
+      path: "/auth",
+      element: <AuthLayout />,
+      children: [{
+        path: "signin",
+        element: <Signin />,
+      }]
     },
     {
       path: "/",
