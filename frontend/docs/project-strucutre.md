@@ -15,12 +15,10 @@ This document provides an overview of the folder structure used in this React pr
 │   ├──   └── [...page]
 │   └── locale
 ├── src
+│   ├── app
 │   ├── context
 │   ├── component
-│   ├──   ├── general
-│   ├──   └── [...page]
 │   ├── hooks
-│   ├── layouts
 │   ├── pages
 │   ├──   └── [...page]
 │   ├── services
@@ -37,7 +35,7 @@ The `public` directory contains static assets that are served directly by the se
 
 - **`images/`**: Contains image files used in the application.
   - **`general/`**: Stores images that are shared between multiple pages.
-  - **`SignIn/`**: Contains images specific to the SignIn page. Similar folders will be created for other pages as needed.
+  - **`signIn/`**: Contains images specific to the SignIn page. Similar folders will be created for other pages as needed.
 - **`fonts/`**: Holds custom fonts used in the project.
 - **`locale/`**: Stores localization files for internationalization (i18n) support.
 
@@ -48,7 +46,7 @@ This folder contains reusable components that can be used throughout the applica
 - [**`general/`**](../public/images/general/): Images that are shared across multiple pages.
 - **`[...page]/`**: Contains images specific to the page.
 
--**Example:**
+**Example:**
 
 ```
  images
@@ -58,72 +56,56 @@ This folder contains reusable components that can be used throughout the applica
 
 ```
 
-### 2. `src/`
+### 2. [`src/`](../src/)
 
 The `src` directory contains the source code of the application.
 
 ```
 ├── src
+│   ├── app
 │   ├── context
-│   ├──   ├── general
-│   ├──   └── [...page]
 │   ├── component
-│   ├──   ├── general
-│   ├──   └── [...page]
 │   ├── hooks
-│   ├──   ├── general
-│   ├──   └── [...page]
 │   ├── services
-│   ├──   ├── general
-│   ├──   └── [...page]
 │   ├── types
-│   ├──   ├── general
-│   └──   └── [...page].d.ts
 │   └── utils
-│   ├──   ├── general
-│   └──   └── [...page]
 └── ....
 ```
 
-- **`general/`**: `Item` that are shared across multiple pages.
-- **`[page]/`**: Contains `Item` specific to the page.
+#### 2.1 [`app/`](../src/app/)
 
--**Example:**
+This folder uses the NextJs App Router[[link here](https://nextjs.org/docs/app/building-your-application/routing)] folder structure for all the pages and contains the root component that sets up the basic view of the application.
 
-```
- component
- ├── general
- ├── signIn // signIn page images in this folder
- ├── home // home page images in this folder
- └── ...similarly for other pages
+**Note:** We are using React Router for navigation and  NextJs App Router folder structure is used for easier visualization of navigation while building the application.
 
-```
+#### 2.2 [`context/`](../src/context/)
 
-#### 2.1 [`context/`](../src/context/)
+This folder is for managing global state using React Context. It contains files that set up contexts and providers for sharing state across the app between more than one page.
 
-This folder is for managing global state using React Context. It contains files that set up contexts and providers for sharing state across the app.
-
-#### 2.2 [`component/`](../src/component/)
+#### 2.3 [`component/`](../src/component/)
 
 This folder contains reusable components that can be used throughout the application.
 
-#### 2.3 [`hooks/`](../src/hooks/)
+#### 2.4 [`hooks/`](../src/hooks/)
 
 Custom React hooks are stored here. Hooks encapsulate reusable logic that can be shared across multiple components.
-
-#### 2.4 [`layouts/`](../src/layouts/)
-
-This folder contains layout components that define the structure of pages, such as headers, footers, and wrappers.
 
 #### 2.5 [`pages/`](../src/pages/)
 
 This folder contains components that represent different pages or views in the application.
+Each page can have its own context, component,hook,service utils  and type.d.ts file or directory.
 
--**Example:**
+**Example:**
 
 ```
  pages/
  ├── signIn // signIn page view component in this folder
+ │   ├── context
+ │   ├── component
+ │   ├── hooks
+ │   ├── services
+ │   ├── types.d.ts
+ │   └── utils
  ├── main // main page view components in this folder
  ├── notFound // main page view components in this folder
  ├── profile // main page view components in this folder
@@ -134,8 +116,6 @@ This folder contains components that represent different pages or views in the a
 #### 2.6 [`services/`](../src/services/)
 
 This folder is for services that handle data fetching, authentication, and other business logic that can be shared across the application.
-
-##### `services` Folder
 
 - **API clients:** Axios, Fetch API, or custom implementations for interacting with external APIs.
 
@@ -158,20 +138,15 @@ src/
 
 #### 2.7 [`types/`](../src/types/)
 
-This folder contains TypeScript type definitions, interfaces, and types used across the project
--
+This folder contains TypeScript type definitions, interfaces, and types used across the project.
 
 **Example:**
 
 ```
  types
- ├── general
- ├──   ├── user.d.ts
- ├──   ├── project.d.ts
- ├──   └── ... types shared between other pages
- ├── signIn.d.ts // types for signIn page 
- ├── home.d.ts // types for home page
- └── ...similarly for other pages
+ ├── user.d.ts
+ ├── project.d.ts
+ └── ... types shared between other pages
 ```
 
 #### 2.8 [`utils/`](../src/utils/)
