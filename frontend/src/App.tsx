@@ -5,13 +5,11 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import NotFound from "@pages/notFound";
-import Signin from "@pages/signin";
-import Layout from "@layouts/layout";
 import DashboardLayout from "@layouts/dashboardLayout";
-import Main from "@pages/main";
-import Profile from "@pages/profile";
-import AddProjects from "./pages/addProjects";
-import Leaderboard from "./pages/leaderboard";
+import { AuthLayout, Signin } from "@/app/auth";
+import { DashboardProfile } from "@/app/dashboard";
+import { PublicHome, PublicLayout, AddProjects } from "@/app/(public)";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const router = createBrowserRouter([
@@ -24,19 +22,25 @@ function App() {
       element: <NotFound />,
     },
     {
-      path: "/signin",
-      element: <Signin />,
+      path: "/auth",
+      element: <AuthLayout />,
+      children: [
+        {
+          path: "signin",
+          element: <Signin />,
+        },
+      ],
     },
     {
       path: "/",
-      element: <Layout />,
+      element: <PublicLayout />,
       children: [
         {
           path: "/",
-          element: <Main />,
+          element: <PublicHome />,
         },
         {
-          path: "/addProjects",
+          path: "/project/add",
           element: <AddProjects />,
         },
       ],
@@ -51,7 +55,7 @@ function App() {
         },
         {
           path: "/dashboard/profile",
-          element: <Profile />,
+          element: <DashboardProfile />,
         },
       ],
     },
@@ -63,8 +67,8 @@ function App() {
 
   return (
     <>
-      {/* <Toaster position="bottom-right" reverseOrder={false} /> */}
       <RouterProvider router={router} />
+      <Toaster position="bottom-center" reverseOrder={true} />
     </>
   );
 }

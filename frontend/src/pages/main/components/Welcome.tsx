@@ -1,4 +1,4 @@
-const Welcome = () => {
+export function Welcome() {
   return (
     <div className="p-4">
       <div>
@@ -11,4 +11,3 @@ const Welcome = () => {
   );
 }
 
-export default Welcome;

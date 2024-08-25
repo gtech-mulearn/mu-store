@@ -45,7 +45,7 @@ const products = [
   },
 ];
 
-function Products() {
+export function Products() {
   return (
     <div className="flex flex-col gap-5 w-full">
       {products.map((product, index) => (
