@@ -1,5 +1,5 @@
+import { Sidebar } from "@/components/sidebar";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../components/sidebar/sidebar";
 function DashboardLayout() {
   return (
     <div className="min-h-screen w-full flex p-4 gap-5">

@@ -5,3 +5,10 @@ interface ProductProps {
   tags: string[];
   votes: number;
 }
+
+interface AxiosResponseData {
+  statusCode: number;
+  response: {
+    accessToken: string;
+  };
+}
