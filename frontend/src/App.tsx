@@ -2,8 +2,8 @@ import "./App.css";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import NotFound from "@pages/notFound";
 import DashboardLayout from "@layouts/dashboardLayout";
-import Profile from "@pages/profile";
 import { AuthLayout, Signin } from "@/app/auth";
+import { DashboardProfile } from "@/app/dashboard";
 import { PublicHome, PublicLayout, AddProjects } from "@/app/(public)";
 import { Toaster } from "react-hot-toast";
 
@@ -49,7 +49,7 @@ function App() {
         },
         {
           path: "/dashboard/profile",
-          element: <Profile />,
+          element: <DashboardProfile />,
         },
       ],
     },
@@ -57,7 +57,6 @@ function App() {
 
   return (
     <>
-      {/* <Toaster position="bottom-right" reverseOrder={false} /> */}
       <RouterProvider router={router} />
       <Toaster position="bottom-center" reverseOrder={true} />
     </>

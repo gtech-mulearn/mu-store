@@ -1,5 +1,5 @@
 import styles from "./sidebar.module.css";
-function Sidebar() {
+export const Sidebar = () => {
   return (
     <aside className={`${styles.sidebarContainer} bg-white rounded-xl shadow`}>
       <div className="p-6 flex items-center">
@@ -79,5 +79,3 @@ function Sidebar() {
     </aside>
   );
 }
-
-export default Sidebar;
