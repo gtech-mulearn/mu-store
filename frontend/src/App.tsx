@@ -1,12 +1,10 @@
 import "./App.css";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import NotFound from "@pages/notFound";
-import Layout from "@layouts/layout";
 import DashboardLayout from "@layouts/dashboardLayout";
-import Main from "@pages/main";
 import Profile from "@pages/profile";
-import AddProjects from "./pages/addProjects";
 import { AuthLayout, Signin } from "@/app/auth";
+import { PublicHome, PublicLayout, AddProjects } from "@/app/(public)";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -29,14 +27,14 @@ function App() {
     },
     {
       path: "/",
-      element: <Layout />,
+      element: <PublicLayout />,
       children: [
         {
           path: "/",
-          element: <Main />,
+          element: <PublicHome />,
         },
         {
-          path: "/addProjects",
+          path: "/project/add",
           element: <AddProjects />,
         },
       ],

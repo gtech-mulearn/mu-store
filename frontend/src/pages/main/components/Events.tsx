@@ -43,7 +43,7 @@ const events: EventProps[] = [
   },
 ];
 
-const EventCard = ({ event }: { event: EventProps }) => {
+export const EventCard = ({ event }: { event: EventProps }) => {
   return (
     <div className="bg-white shadow-sm p-4 rounded-lg mb-4 border">
       <div className="flex items-center space-x-4 mb-2">
@@ -70,7 +70,7 @@ const EventCard = ({ event }: { event: EventProps }) => {
   );
 };
 
-function Events() {
+export function Events() {
   return (
     <div className="lg:flex flex-col gap-5 w-1/3 justify-start items-start px-24 hidden">
       <p className="text-2xl text-left w-full py-4 border-b-[1px] border-gray-300">

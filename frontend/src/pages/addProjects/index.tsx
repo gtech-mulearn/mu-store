@@ -1,5 +1,5 @@
 import style from "./index.module.css";
-const AddProjects = () => {
+export const AddProjects = () => {
   return (
     <div className={`p-8 h-screen`}>
       <div className={`${style.bgShadow} p-8 h-full w-full rounded-3xl`}>
@@ -9,4 +9,3 @@ const AddProjects = () => {
   );
 };
 
-export default AddProjects;
