@@ -11,6 +11,7 @@ import DashboardLayout from "@layouts/dashboardLayout";
 import Main from "@pages/main";
 import Profile from "@pages/profile";
 import AddProjects from "./pages/addProjects";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const router = createBrowserRouter([
@@ -60,6 +61,7 @@ function App() {
     <>
       {/* <Toaster position="bottom-right" reverseOrder={false} /> */}
       <RouterProvider router={router} />
+      <Toaster position="bottom-center" reverseOrder={true} />
     </>
   );
 }
