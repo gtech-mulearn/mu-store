@@ -12,7 +12,7 @@
 
 ```bash
 git clone https://github.com/<your-username>/mu-store.git
-cd your-repo-name
+cd mu-store
 ```
 
 ## 2. Frontend
