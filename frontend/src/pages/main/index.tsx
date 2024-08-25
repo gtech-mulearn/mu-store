@@ -1,6 +1,7 @@
-import Events from "./components/Events";
-import Products from "./components/Products";
-import Welcome from "./components/Welcome";
+import Events from "./components/events";
+import Products from "./components/products";
+import Welcome from "./components/welcome";
+
 
 const Main = () => {
   return (
