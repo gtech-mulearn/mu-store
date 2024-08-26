@@ -8,7 +8,12 @@ import NotFound from "@pages/notFound";
 import DashboardLayout from "@layouts/dashboardLayout";
 import { AuthLayout, Signin } from "@/app/auth";
 import { DashboardProfile } from "@/app/dashboard";
-import { PublicHome, PublicLayout, AddProjects } from "@/app/(public)";
+import {
+  PublicHome,
+  PublicLayout,
+  AddProjects,
+  Leaderboard,
+} from "@/app/(public)";
 import { Toaster } from "react-hot-toast";
 
 function App() {
