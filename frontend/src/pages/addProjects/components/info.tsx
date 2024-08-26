@@ -1,205 +1,126 @@
-import React from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-interface InfoProps {
-  onSubmit: (data: InfoData) => void;
-}
-
-interface InfoData {
-  description: string;
-  link: string;
-  isOpenSource: boolean;
-  theme: string;
-  skills: string[];
-  category: string;
-  subCategory: string;
-}
-
-const Info: React.FC<InfoProps> = ({ onSubmit }) => {
+const projectSchema = z.object({
+  description: z.string().min(1, "Description is required"),
+  link: z.string().url("Enter a valid URL"),
+  theme: z.string().min(1, "Theme is required"),
+  skills: z
+    .array(z.string())
+    .min(1, "At least one skill is required")
+    .max(3, "Maximum of 3 skills allowed"),
+  category: z.string().min(1, "Category is required"),
+  subCategory: z.string().min(1, "Subcategory is required"),
+  isOpenSource: z.boolean().optional(),
+});
+const Info = () => {
   const {
-    control,
+    register,
     handleSubmit,
     formState: { errors },
-  } = useForm<InfoData>({
-    defaultValues: {
-      description: "",
-      link: "",
-      isOpenSource: false,
-      theme: "",
-      skills: [],
-      category: "",
-      subCategory: "",
-    },
+  } = useForm({
+    resolver: zodResolver(projectSchema),
   });
 
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
+
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="max-w-2xl mx-auto p-6 space-y-6"
-    >
-      <div>
-        <label
-          htmlFor="description"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Description *
-        </label>
-        <Controller
-          name="description"
-          control={control}
-          rules={{ required: "Description is required" }}
-          render={({ field }) => (
-            <textarea
-              {...field}
-              id="description"
-              placeholder="Enter Project details"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border p-2"
-              rows={4}
-            />
-          )}
+    <form onSubmit={handleSubmit(onSubmit)} className="flex space-x-4">
+      <div className="w-1/2">
+        <label className="block mb-2">Description *</label>
+        <textarea
+          {...register("description")}
+          placeholder="Enter Project details"
+          className="w-full h-full border rounded p-2"
         />
         {errors.description && (
-          <span className="text-red-500 text-xs">
-            {errors.description.message}
-          </span>
+          <p className="text-red-500 text-sm">
+            {String(errors.description.message)}
+          </p>
         )}
       </div>
 
-      <div>
-        <label
-          htmlFor="link"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Link to the project *
-        </label>
-        <Controller
-          name="link"
-          control={control}
-          rules={{ required: "Project link is required" }}
-          render={({ field }) => (
-            <input
-              {...field}
-              type="url"
-              id="link"
-              placeholder="Enter the URL for the project"
-              className="border p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            />
-          )}
-        />
-        {errors.link && (
-          <span className="text-red-500 text-xs">{errors.link.message}</span>
-        )}
-      </div>
-
-      <div className="flex items-center">
-        <Controller
-          name="isOpenSource"
-          control={control}
-          render={({ field }) => (
-            <input
-              type="checkbox"
-              {...field}
-              checked={field.value}
-              value={field.value ? "true" : "false"}
-              className="border p-2 rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50"
-            />
-          )}
-        />
-        <label
-          htmlFor="isOpenSource"
-          className="ml-2 block text-sm text-gray-900"
-        >
-          Is the project open source?
-        </label>
-      </div>
-
-      <div>
-        <label
-          htmlFor="theme"
-          className="block text-sm font-medium text-gray-700"
-        >
-          Theme of the project *
-        </label>
-        <Controller
-          name="theme"
-          control={control}
-          rules={{ required: "Theme is required" }}
-          render={({ field }) => (
-            <input
-              {...field}
-              type="text"
-              id="theme"
-              placeholder="Enter the theme of the project"
-              className="border p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            />
-          )}
-        />
-        {errors.theme && (
-          <span className="text-red-500 text-xs">{errors.theme.message}</span>
-        )}
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-700">
-          Skills (Up to 3) *
-        </label>
-        {/* Implement skill selection logic here */}
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label
-            htmlFor="category"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Category
-          </label>
-          <Controller
-            name="category"
-            control={control}
-            render={({ field }) => (
-              <select
-                {...field}
-                id="category"
-                className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              >
-                <option value="">Select a category</option>
-                {/* Add category options here */}
-              </select>
-            )}
+      <div className="w-1/2">
+        <div className="mt-4">
+          <label className="block mb-2">Link to the project *</label>
+          <input
+            {...register("link")}
+            placeholder="Enter the URL for the project"
+            className="w-full border rounded p-2"
           />
+          {errors.link && (
+            <p className="text-red-500 text-sm">
+              {String(errors.link.message)}
+            </p>
+          )}
+        </div>
+        <div className="mt-4">
+          <label className="block mb-2">Theme of the project *</label>
+          <input
+            {...register("theme")}
+            placeholder="Enter the theme of the project"
+            className="w-full border rounded p-2"
+          />
+          {errors.theme && (
+            <p className="text-red-500 text-sm">
+              {String(errors.theme.message)}
+            </p>
+          )}
+        </div>
+        <div className="mt-4">
+          <label className="block mb-2">Skills (Up to 3) *</label>
+          <input
+            {...register("skills")}
+            placeholder="Enter skills separated by commas"
+            className="w-full border rounded p-2"
+          />
+          {errors.skills && (
+            <p className="text-red-500 text-sm">
+              {String(errors.skills.message)}
+            </p>
+          )}
+        </div>
+        <label className="block mb-2">Category *</label>
+        <select {...register("category")} className="w-full border rounded p-2">
+          <option value="">Select Category</option>
+          <option value="Web Development">Web Development</option>
+          <option value="Mobile Development">Mobile Development</option>
+        </select>
+        {errors.category && (
+          <p className="text-red-500 text-sm">
+            {String(errors.category.message)}
+          </p>
+        )}
+
+        <div className="mt-4">
+          <label className="block mb-2">Subcategory *</label>
+          <select
+            {...register("subCategory")}
+            className="w-full border rounded p-2"
+          >
+            <option value="">Select Subcategory</option>
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
+          </select>
+          {errors.subCategory && (
+            <p className="text-red-500 text-sm">
+              {String(errors.subCategory.message)}
+            </p>
+          )}
         </div>
 
-        <div>
-          <label
-            htmlFor="subCategory"
-            className="block text-sm font-medium text-gray-700"
+        <div className="mt-4">
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white p-2 rounded"
           >
-            Sub Category
-          </label>
-          <Controller
-            name="subCategory"
-            control={control}
-            render={({ field }) => (
-              <select
-                {...field}
-                id="subCategory"
-                className="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              >
-                <option value="">Select a sub category</option>
-                {/* Add sub category options here */}
-              </select>
-            )}
-          />
+            Submit
+          </button>
         </div>
       </div>
-
-      <button
-        type="submit"
-        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      >
-        Submit
-      </button>
     </form>
   );
 };
