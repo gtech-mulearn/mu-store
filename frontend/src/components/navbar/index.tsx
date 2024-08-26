@@ -2,6 +2,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { IoClose } from "react-icons/io5";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { navItems } from "./components/navItems";
 
 function Navbar() {
   const [isopen, setisopen] = useState(false);
@@ -9,22 +10,25 @@ function Navbar() {
     <nav className="bg-white py-2 px-6 border-b-[1px] border-gray-300 w-full overflow-x-hidden">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-2">
-          <img src='/images/logo.png' alt="mustore" className="h-14" />
+          <img src="/images/logo.png" alt="mustore" className="h-14" />
         </div>
 
         <div className="flex space-x-8 text-gray-700 max-md:hidden">
-          <a href="#" className="hover:text-black hover:underline">
-            Products
-          </a>
-          <a href="#" className="hover:text-black hover:underline">
-            Leaderboard
-          </a>
-          <a href="#" className="hover:text-black hover:underline">
-            About
-          </a>
-          <a href="#" className="hover:text-black hover:underline">
-            Community
-          </a>
+          {navItems.map((item) => (
+            <a
+              key={item.path}
+              href={
+                item.path === "/community" ? "https://mulearn.org/" : item.path
+              }
+              target={item.path === "/community" ? "_blank" : "_self"}
+              rel={
+                item.path === "/community" ? "noopener noreferrer" : undefined
+              }
+              className="hover:text-black hover:underline"
+            >
+              {item.name}
+            </a>
+          ))}
         </div>
 
         <div className="flex space-x-4">
@@ -58,21 +62,21 @@ function Navbar() {
               className="text-white text-6xl"
             />
           </div>
-          <a href="#" className="hover:text-black hover:underline">
-            Launches
-          </a>
-          <a href="#" className="hover:text-black hover:underline">
-            Products
-          </a>
-          <a href="#" className="hover:text-black hover:underline">
-            News
-          </a>
-          <a href="#" className="hover:text-black hover:underline">
-            Community
-          </a>
-          <a href="#" className="hover:text-black hover:underline">
-            Advertise
-          </a>
+          {navItems.map((item) => (
+            <a
+              key={item.path}
+              href={
+                item.path === "/community" ? "https://mulearn.org/" : item.path
+              }
+              target={item.path === "/community" ? "_blank" : "_self"}
+              rel={
+                item.path === "/community" ? "noopener noreferrer" : undefined
+              }
+              className="hover:text-black hover:underline"
+            >
+              {item.name}
+            </a>
+          ))}
         </div>
       </motion.div>
     </nav>

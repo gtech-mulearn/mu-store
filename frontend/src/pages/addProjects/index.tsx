@@ -1,25 +1,5 @@
-import { useState } from "react";
-import Preview from "./components/preview";
-import styles from "./index.module.css";
-import { CiCircleInfo } from "react-icons/ci";
-import { IoMdRocket } from "react-icons/io";
-import { IoPeople } from "react-icons/io5";
-import { IoImagesSharp } from "react-icons/io5";
-import { HiSpeakerphone } from "react-icons/hi";
-
-import Info from "./components/info";
-
-const AddProjects = () => {
-  const [activeTab, setActiveTab] = useState("Key Info");
-
-  const tabs = [
-    { name: "Key Info", icon: <CiCircleInfo /> },
-    { name: "Media", icon: <IoImagesSharp /> },
-    { name: "Shoutout", icon: <HiSpeakerphone /> },
-    { name: "Creators", icon: <IoPeople /> },
-    { name: "Launch Checklist", icon: <IoMdRocket /> },
-  ];
-
+import style from "./index.module.css";
+export const AddProjects = () => {
   return (
     <div className={`p-8 min-h-screen w-full`}>
       <div
@@ -100,5 +80,3 @@ const AddProjects = () => {
     </div>
   );
 };
-
-export default AddProjects;

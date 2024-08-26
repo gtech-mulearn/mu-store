@@ -1,4 +1,4 @@
-function Welcome() {
+export function Welcome() {
   return (
     <div className="p-4">
       <div>
@@ -11,4 +11,3 @@ function Welcome() {
   );
 }
 
-export default Welcome;
