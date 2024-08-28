@@ -1,11 +1,23 @@
 import { PiArrowFatUpThin } from "react-icons/pi";
 import { FaRegHeart } from "react-icons/fa";
-// import { FaHeart } from "react-icons/fa";
 import { FiUpload } from "react-icons/fi";
+import { usePreviewStore } from "../hooks/usePreviewStore";
+import { motion } from "framer-motion";
+
+const enterAnimation = {
+  initial: { opacity: 0, y: -20 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
 
 const Preview = () => {
+  const { details } = usePreviewStore();
   return (
-    <div className="flex flex-col gap-3 text-xs text-center font-light text-[#727272] tracking-tight">
+    <motion.div
+      initial="initial"
+      animate="animate"
+      variants={enterAnimation}
+      className="flex flex-col gap-3 text-xs text-center font-light text-[#727272] tracking-tight"
+    >
       <p>This is how your project appears to viewer's </p>
       <div
         style={{
@@ -17,14 +29,16 @@ const Preview = () => {
           <div className="relative w-full h-48 bg-gray-100 flex items-center justify-center rounded-lg">
             <FiUpload className="text-6xl text-black" />
             <span className="absolute -bottom-5 left-0 bg-[#D9CFCF] text-gray-900 text-sm px-3 py-1 rounded-full shadow-md">
-              Project Name
+              {details.title}
             </span>
           </div>
 
           <div className="mt-8">
-            <p className="text-[0.8rem] text-left text-gray-500">#Theme</p>
+            <p className="text-[0.8rem] text-left text-gray-500">
+              {details.tags}
+            </p>
             <p className="mt-1 text-left text-gray-500 text-base font-medium text-wrap">
-              It's basically a sentence on the project.
+              {details.description}
             </p>
           </div>
 
@@ -40,7 +54,7 @@ const Preview = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

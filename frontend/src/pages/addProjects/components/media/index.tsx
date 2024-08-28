@@ -68,6 +68,16 @@ const Media = () => {
   };
   return (
     <div className="flex flex-col gap-12 justify-center">
+      <div className="flex">
+        <UploadCard
+          title={ThumbnailProp.title}
+          description={ThumbnailProp.description}
+        />
+        <UploadCard
+          title={GallaryProp.title}
+          description={GallaryProp.description}
+        />
+      </div>
       <div className=" p-10">
         <h2 className="text-3xl font-semibold mb-2">Video / Loom</h2>
         <p className="text-sm text-gray-600 mb-4">
@@ -78,16 +88,6 @@ const Media = () => {
           type="text"
           placeholder="Enter / Paste URL"
           className="w-full border border-gray-300 rounded-lg px-4 py-2 text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-primary transition"
-        />
-      </div>
-      <div className="flex">
-        <UploadCard
-          title={ThumbnailProp.title}
-          description={ThumbnailProp.description}
-        />
-        <UploadCard
-          title={GallaryProp.title}
-          description={GallaryProp.description}
         />
       </div>
     </div>
