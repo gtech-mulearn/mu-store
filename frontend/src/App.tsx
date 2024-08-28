@@ -16,6 +16,8 @@ import {
 } from "@/app/(public)";
 import { Toaster } from "react-hot-toast";
 
+import ProductDetails from "./pages/productDetails";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -67,6 +69,10 @@ function App() {
     {
       path: "/leaderboard",
       element: <Leaderboard />,
+    },
+    {
+      path: "/product/",
+      element: <ProductDetails />,
     },
   ]);
 
