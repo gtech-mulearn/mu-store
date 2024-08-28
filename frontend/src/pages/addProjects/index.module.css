@@ -35,8 +35,10 @@
     box-sizing: border-box;
   }
   
-  .floatingInput:focus {
+  .floatingInput {
     outline: none;
+  }
+  .floatingInput:focus {
     border: 2px solid #132972;
   }
   

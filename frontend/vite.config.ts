@@ -9,6 +9,9 @@ const __dirname = dirname(__filename);
 
 export default defineConfig({
   plugins: [react()],
+  optimizeDeps: {
+    include: ["zustand"],
+  },
   resolve: {
     alias: {
       "@pages": resolve(__dirname, "src/pages"),
