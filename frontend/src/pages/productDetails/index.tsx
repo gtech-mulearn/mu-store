@@ -3,8 +3,41 @@ import { BsDot, BsFillFlagFill } from "react-icons/bs";
 import { FiHeart } from "react-icons/fi";
 import { PiArrowFatUpLight } from "react-icons/pi";
 import { RiShareFill } from "react-icons/ri";
+import { Credits } from "./components/credits/credits";
 
 const ProductDetails = () => {
+  const contributers = [
+    {
+      muid: "geevarghese@mulearn",
+      image:
+        "https://mulearn.org/muback-media/user/profile/8bafab61-8f13-4c67-9509-52f472a16a4b.png?468.3652169774042",
+    },
+    {
+      muid: "geevarghese@mulearn",
+      image:
+        "https://mulearn.org/muback-media/user/profile/8bafab61-8f13-4c67-9509-52f472a16a4b.png?468.3652169774042",
+    },
+    {
+      muid: "geevarghese@mulearn",
+      image:
+        "https://mulearn.org/muback-media/user/profile/8bafab61-8f13-4c67-9509-52f472a16a4b.png?468.3652169774042",
+    },
+    {
+      muid: "geevarghese@mulearn",
+      image:
+        "https://mulearn.org/muback-media/user/profile/8bafab61-8f13-4c67-9509-52f472a16a4b.png?468.3652169774042",
+    },
+    {
+      muid: "geevarghese@mulearn",
+      image:
+        "https://mulearn.org/muback-media/user/profile/8bafab61-8f13-4c67-9509-52f472a16a4b.png?468.3652169774042",
+    },
+    {
+      muid: "geevarghese@mulearn",
+      image:
+        "https://mulearn.org/muback-media/user/profile/8bafab61-8f13-4c67-9509-52f472a16a4b.png?468.3652169774042",
+    },
+  ];
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -48,7 +81,15 @@ const ProductDetails = () => {
             </div>
           </div>
         </div>
-        <div>IMAGE GRID</div>
+        <div className="min-h-[400px] flex items-center justify-center border-2">
+          IMAGE GRID AND DESCROPTION
+        </div>
+        <div className="flex justify-around w-full">
+          <div className="font-jakarta font-bold text-3xl">Comments</div>
+          <div className="flex items-center justify-center ">
+            <Credits contributers={contributers} />
+          </div>
+        </div>
       </div>
     </div>
   );
