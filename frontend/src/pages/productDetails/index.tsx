@@ -4,8 +4,16 @@ import { FiHeart } from "react-icons/fi";
 import { PiArrowFatUpLight } from "react-icons/pi";
 import { RiShareFill } from "react-icons/ri";
 import { Credits } from "./components/credits/credits";
-
+import { DiscussionEmbed } from "disqus-react";
 const ProductDetails = () => {
+  const disqusConfig = {
+    shortname: "mustore", // Replace with your Disqus shortname
+    config: {
+      url: window.location.href,
+      identifier: "product-id", // Use a unique identifier for each product/page
+      title: "Pixelated butterfly",
+    },
+  };
   const contributers = [
     {
       muid: "geevarghese@mulearn",
@@ -84,10 +92,20 @@ const ProductDetails = () => {
         <div className="min-h-[400px] flex items-center justify-center border-2">
           IMAGE GRID AND DESCROPTION
         </div>
-        <div className="flex justify-around w-full">
-          <div className="font-jakarta font-bold text-3xl">Comments</div>
-          <div className="flex items-center justify-center ">
-            <Credits contributers={contributers} />
+        <div className="w-full">
+          <div className="flex justify-around w-full">
+            <div className="font-jakarta font-bold text-3xl w-full">
+              <div className="flex flex-col items-start pl-36 w-full">
+                <div className="">Comments</div>
+
+                <div className="w-3/4 pt-2">
+                  <DiscussionEmbed {...disqusConfig} />
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center justify-center w-full ">
+              <Credits contributers={contributers} />
+            </div>
           </div>
         </div>
       </div>
