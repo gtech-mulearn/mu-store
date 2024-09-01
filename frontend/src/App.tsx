@@ -1,11 +1,22 @@
 import "./App.css";
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import NotFound from "@pages/notFound";
 import DashboardLayout from "@layouts/dashboardLayout";
 import { AuthLayout, Signin } from "@/app/auth";
 import { DashboardProfile } from "@/app/dashboard";
-import { PublicHome, PublicLayout, AddProjects } from "@/app/(public)";
+import {
+  PublicHome,
+  PublicLayout,
+  AddProjects,
+  Leaderboard,
+} from "@/app/(public)";
 import { Toaster } from "react-hot-toast";
+
+import ProductDetails from "./pages/productDetails";
 
 function App() {
   const router = createBrowserRouter([
@@ -20,10 +31,12 @@ function App() {
     {
       path: "/auth",
       element: <AuthLayout />,
-      children: [{
-        path: "signin",
-        element: <Signin />,
-      }]
+      children: [
+        {
+          path: "signin",
+          element: <Signin />,
+        },
+      ],
     },
     {
       path: "/",
@@ -52,6 +65,14 @@ function App() {
           element: <DashboardProfile />,
         },
       ],
+    },
+    {
+      path: "/leaderboard",
+      element: <Leaderboard />,
+    },
+    {
+      path: "/product/",
+      element: <ProductDetails />,
     },
   ]);
 

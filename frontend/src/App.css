@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'jakarta-sans';
-    src: url('/fonts/PlusJakartaSans-VariableFont_wght.ttf');
+  font-family: "jakarta-sans";
+  src: url("/fonts/PlusJakartaSans-VariableFont_wght.ttf");
 }

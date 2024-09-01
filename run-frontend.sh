@@ -18,6 +18,8 @@ elif [ "$install_choice" = "preview" ]; then
   npm run preview
 elif [ "$install_choice" = "install" ]; then
   npm install
+elif [ "$install_choice" = "i" ]; then
+  npm install
 elif [ "$install_choice" = "dev host" ]; then
   npm run dev -- --host
 fi

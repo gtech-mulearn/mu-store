@@ -26,6 +26,7 @@ export const AddProjects = () => {
       tagline: "",
     },
   });
+  console.log(setValue);
 
   const title = watch("title");
   const tagline = watch("tagline");
